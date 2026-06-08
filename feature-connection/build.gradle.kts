@@ -8,7 +8,9 @@ plugins {
 android {
     namespace = "com.nikonlink.connection"
     compileSdk = 34
-    defaultConfig { minSdk = 28 }
+    defaultConfig { minSdk = 28
+        targetSdk = 34
+    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17

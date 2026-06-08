@@ -1,0 +1,123 @@
+<h2>整体架构设计</h2>
+<p class="subtitle">MVVM + Clean Architecture — 三层结构，单向依赖</p>
+
+<div class="section">
+  <h3>架构分层</h3>
+
+  <div class="mockup">
+    <div class="mockup-header">📱 NikonLink App Architecture</div>
+    <div class="mockup-body" style="font-family: monospace; font-size: 13px; line-height: 1.8; padding: 20px;">
+
+<div style="border: 2px solid #4A90D9; border-radius: 8px; padding: 12px; margin-bottom: 12px; background: rgba(74,144,217,0.1);">
+  <strong>🎨 UI Layer</strong><br>
+  ┌─────────────────────────────────────────┐<br>
+  │  Activity / Fragment (XML Layout)        │<br>
+  │  + DataBinding + Navigation Component    │<br>
+  ├─────────────────────────────────────────┤<br>
+  │  ViewModel (LiveData / StateFlow)        │<br>
+  └─────────────────────────────────────────┘
+</div>
+<div style="text-align: center; font-size: 24px; margin: 8px 0;">⬆️⬇️</div>
+<div style="border: 2px solid #F5A623; border-radius: 8px; padding: 12px; margin-bottom: 12px; background: rgba(245,166,35,0.1);">
+  <strong>🧠 Domain Layer</strong> (Pure Kotlin — 无Android依赖)<br>
+  ┌─────────────────────────────────────────┐<br>
+  │  Use Cases                               │<br>
+  │  • ConnectToCameraUseCase                │<br>
+  │  • BrowseCameraFilesUseCase              │<br>
+  │  • TransferFilesUseCase                  │<br>
+  │  • LiveViewUseCase                       │<br>
+  │  • RemoteCaptureUseCase                  │<br>
+  ├─────────────────────────────────────────┤<br>
+  │  Repository Interfaces                   │<br>
+  │  • CameraRepository                      │<br>
+  │  • FileRepository                        │<br>
+  │  • TransferRepository                    │<br>
+  └─────────────────────────────────────────┘
+</div>
+<div style="text-align: center; font-size: 24px; margin: 8px 0;">⬆️⬇️</div>
+<div style="border: 2px solid #7B4FBF; border-radius: 8px; padding: 12px; background: rgba(123,79,191,0.1);">
+  <strong>💾 Data Layer</strong><br>
+  ┌─────────────────────────────────────────┐<br>
+  │  Repository Implementations              │<br>
+  ├─────────────────────────────────────────┤<br>
+  │  Data Sources                            │<br>
+  │  ┌─────────┐ ┌─────────┐ ┌──────────┐  │<br>
+  │  │ BLE     │ │ WiFi    │ │ Local    │  │<br>
+  │  │ Source  │ │ P2P     │ │ Storage  │  │<br>
+  │  │         │ │ Source  │ │ Source   │  │<br>
+  │  └─────────┘ └─────────┘ └──────────┘  │<br>
+  └─────────────────────────────────────────┘<br>
+  ┌──────┐ ┌──────┐ ┌───────────┐ ┌───────┐<br>
+  │ Nikon│ │ Nikon│ │Nikon WMU  │ │Android│<br>
+  │SnapBr│ │ PTP  │ │Legacy     │ │Camera │<br>
+  │idge  │ │IP    │ │API        │ │API    │<br>
+  └──────┘ └──────┘ └───────────┘ └───────┘
+</div>
+
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>四大功能模块</h3>
+  <div class="options">
+    <div class="option" style="cursor: default;">
+      <div class="letter">1</div>
+      <div class="content">
+        <h3>📡 连接管理</h3>
+        <p>BLE扫描配对 → WiFi配置切换 → 连接状态机 (Disconnected → BLE Connected → WiFi Ready → Transfer Mode)</p>
+      </div>
+    </div>
+    <div class="option" style="cursor: default;">
+      <div class="letter">2</div>
+      <div class="content">
+        <h3>📁 文件浏览</h3>
+        <p>读取相机目录树 → 缩略图加载 → 多选 → 格式标识 (RAW/JPEG/Video)</p>
+      </div>
+    </div>
+    <div class="option" style="cursor: default;">
+      <div class="letter">3</div>
+      <div class="content">
+        <h3>📤 文件传输</h3>
+        <p>队列管理 → 断点续传 → 后台传输 (WorkManager) → 传输进度通知</p>
+      </div>
+    </div>
+    <div class="option" style="cursor: default;">
+      <div class="letter">4</div>
+      <div class="content">
+        <h3>📷 遥控拍摄</h3>
+        <p>LiveView 实时取景 → 参数显示/调整 → 触屏对焦 → 快门释放 → 即时回传预览</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>关键技术决策</h3>
+  <table style="width:100%; border-collapse: collapse; font-size: 14px;">
+    <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);">
+      <td style="padding: 8px;"><strong>DI框架</strong></td>
+      <td style="padding: 8px;">Hilt (Dagger-Hilt) — Google推荐，对ViewModel集成最好</td>
+    </tr>
+    <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);">
+      <td style="padding: 8px;"><strong>异步处理</strong></td>
+      <td style="padding: 8px;">Kotlin Coroutines + Flow — 原生支持，轻量</td>
+    </tr>
+    <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);">
+      <td style="padding: 8px;"><strong>图片加载</strong></td>
+      <td style="padding: 8px;">Coil — Kotlin原生，轻量级，支持RAW预览扩展</td>
+    </tr>
+    <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);">
+      <td style="padding: 8px;"><strong>后台传输</strong></td>
+      <td style="padding: 8px;">WorkManager — 保证传输任务完成，兼容Android各版本后台限制</td>
+    </tr>
+    <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);">
+      <td style="padding: 8px;"><strong>本地存储</strong></td>
+      <td style="padding: 8px;">Room Database (传输记录) + MediaStore / SAF (照片写入系统相册)</td>
+    </tr>
+    <tr>
+      <td style="padding: 8px;"><strong>网络通信</strong></td>
+      <td style="padding: 8px;">OkHttp (WiFi/HTTP) + Android BLE API + 自定义PTP/IP客户端</td>
+    </tr>
+  </table>
+</div>

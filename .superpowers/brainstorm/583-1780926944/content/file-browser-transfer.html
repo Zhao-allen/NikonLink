@@ -1,0 +1,155 @@
+<h2>📁 文件浏览 & 📤 传输管理</h2>
+<p class="subtitle">文件夹目录浏览 + 缩略图 + 后台队列传输</p>
+
+<div class="section">
+  <h3>文件浏览界面结构</h3>
+
+  <div class="mockup">
+    <div class="mockup-header">Browser Screen Layout</div>
+    <div class="mockup-body" style="padding: 20px;">
+      <div style="display: flex; gap: 16px;">
+        <!-- Phone frame left: folder view -->
+        <div style="border: 2px solid #555; border-radius: 16px; width: 200px; padding: 0; overflow: hidden; background: #1a1a2e;">
+          <div style="background: #16213e; padding: 8px 12px; font-size: 11px; font-weight: bold; border-bottom: 1px solid #333;">
+            ← 相机文件
+          </div>
+          <div style="padding: 8px;">
+            <div style="font-size: 10px; color: #999; padding: 4px 0;">📁 DCIM</div>
+            <div style="font-size: 10px; padding: 4px 0 4px 16px; color: #999;">📁 100ND750</div>
+            <div style="font-size: 10px; padding: 4px 0 4px 32px;">🖼 DSC_1234.NEF <span style="color:#F5A623;font-size:9px;">RAW</span></div>
+            <div style="font-size: 10px; padding: 4px 0 4px 32px;">🖼 DSC_1235.JPG</div>
+            <div style="font-size: 10px; padding: 4px 0 4px 32px; background: rgba(39,174,96,0.2);">✓ 🎬 DSC_1236.MOV</div>
+            <div style="font-size: 10px; padding: 4px 0 4px 16px; color: #999;">📁 101ND750</div>
+            <div style="font-size: 10px; padding: 4px 0; color: #999;">📁 NIKON</div>
+          </div>
+          <div style="background: #16213e; padding: 6px 12px; font-size: 10px; border-top: 1px solid #333; display: flex; justify-content: space-between;">
+            <span>已选 3 项</span>
+            <span style="color: #27AE60;">传输 →</span>
+          </div>
+        </div>
+        <!-- Phone frame right: thumbnail grid -->
+        <div style="border: 2px solid #555; border-radius: 16px; width: 200px; padding: 0; overflow: hidden; background: #1a1a2e;">
+          <div style="background: #16213e; padding: 8px 12px; font-size: 11px; font-weight: bold; border-bottom: 1px solid #333;">
+            ← 100ND750
+          </div>
+          <div style="padding: 6px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 3px;">
+            <div class="placeholder" style="height: 50px; font-size: 20px; display:flex;align-items:center;justify-content:center;">🖼</div>
+            <div class="placeholder" style="height: 50px; font-size: 20px; display:flex;align-items:center;justify-content:center;">🖼</div>
+            <div class="placeholder" style="height: 50px; font-size: 20px; display:flex;align-items:center;justify-content:center; border: 2px solid #27AE60;">✓</div>
+            <div class="placeholder" style="height: 50px; font-size: 20px; display:flex;align-items:center;justify-content:center;">🎬</div>
+            <div class="placeholder" style="height: 50px; font-size: 20px; display:flex;align-items:center;justify-content:center;">🖼</div>
+            <div class="placeholder" style="height: 50px; font-size: 20px; display:flex;align-items:center;justify-content:center;">🖼</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>文件列表关键特性</h3>
+  <div class="options">
+    <div class="option" style="cursor: default;">
+      <div class="letter">🎯</div>
+      <div class="content">
+        <h3>格式识别标签</h3>
+        <p>RAW (NEF) 标橙色角标、JPEG 无标、视频 (MOV/MP4) 标时长角标，一眼区分</p>
+      </div>
+    </div>
+    <div class="option" style="cursor: default;">
+      <div class="letter">📸</div>
+      <div class="content">
+        <h3>RAW内嵌预览</h3>
+        <p>解析NEF文件内嵌的JPEG预览图作为缩略图，无需传输完整RAW即可浏览</p>
+      </div>
+    </div>
+    <div class="option" style="cursor: default;">
+      <div class="letter">✅</div>
+      <div class="content">
+        <h3>多选操作</h3>
+        <p>长按进入多选模式，支持全选/反选，底部栏显示已选数量和总大小</p>
+      </div>
+    </div>
+    <div class="option" style="cursor: default;">
+      <div class="letter">🔍</div>
+      <div class="content">
+        <h3>筛选排序</h3>
+        <p>按类型筛选（全部/照片/视频/RAW），按名称/日期/大小排序</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>传输管理设计</h3>
+
+  <div class="mockup">
+    <div class="mockup-header">Transfer Queue + WorkManager Architecture</div>
+    <div class="mockup-body" style="font-family: monospace; font-size: 13px; line-height: 1.8; padding: 20px;">
+
+<div style="background: rgba(0,0,0,0.2); padding: 16px; border-radius: 8px;">
+
+<p><strong>📋 传输队列流程</strong></p>
+
+<div style="margin: 8px 0; padding: 8px; background: rgba(74,144,217,0.1); border-radius: 4px;">
+1️⃣ 用户选择文件 → 加入传输队列 → Room DB持久化任务
+</div>
+<div style="margin: 8px 0; padding: 8px; background: rgba(74,144,217,0.1); border-radius: 4px;">
+2️⃣ WiFi连接建立 → WorkManager开始执行传输
+</div>
+<div style="margin: 8px 0; padding: 8px; background: rgba(74,144,217,0.1); border-radius: 4px;">
+3️⃣ 按优先级传输：先传JPEG缩略图预览 → 再传RAW/视频
+</div>
+<div style="margin: 8px 0; padding: 8px; background: rgba(245,166,35,0.1); border-radius: 4px;">
+4️⃣ 中断恢复：每传输完一个文件更新DB进度，断点记录已传字节
+</div>
+<div style="margin: 8px 0; padding: 8px; background: rgba(39,174,96,0.1); border-radius: 4px;">
+5️⃣ 完成 → 写入相册(MediaStore) → 通知栏显示 → 更新DB状态
+</div>
+
+</div>
+
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>传输界面卡片</h3>
+
+  <div class="cards">
+    <div class="card" style="cursor: default;">
+      <div class="card-body">
+        <h3>📊 传输进度面板</h3>
+        <p>当前文件进度条 + 总进度 + 实时速率 (MB/s) + 预估剩余时间</p>
+        <div class="placeholder" style="height: 8px; margin-top: 8px; background: #333; border-radius: 4px; overflow: hidden;">
+          <div style="width: 65%; height: 100%; background: #27AE60; border-radius: 4px;"></div>
+        </div>
+        <p style="font-size: 11px; margin-top: 4px; color: #999;">3/8 文件 | 45.2 MB / 210 MB | 8.2 MB/s | 剩余约20秒</p>
+      </div>
+    </div>
+    <div class="card" style="cursor: default;">
+      <div class="card-body">
+        <h3>🔔 通知栏传输</h3>
+        <p>后台传输时通知栏显示进度，支持暂停/取消操作。传输完成后自动消失并提示</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>文件存储路径规则</h3>
+  <table style="width:100%; border-collapse: collapse; font-size: 14px;">
+    <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);">
+      <td style="padding: 8px;">📸 <strong>照片</strong></td>
+      <td style="padding: 8px;">Pictures/NikonLink/相机名称/日期/文件名</td>
+    </tr>
+    <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);">
+      <td style="padding: 8px;">🎬 <strong>视频</strong></td>
+      <td style="padding: 8px;">Movies/NikonLink/相机名称/日期/文件名</td>
+    </tr>
+    <tr>
+      <td style="padding: 8px;">📋 <strong>MediaStore</strong></td>
+      <td style="padding: 8px;">自动注册到系统相册，其他APP可直接查看</td>
+    </tr>
+  </table>
+</div>

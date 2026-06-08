@@ -1,0 +1,173 @@
+<h2>🗄️ 数据模型 & 应用导航</h2>
+<p class="subtitle">Room Database 表结构 + 页面导航流程</p>
+
+<div class="section">
+  <h3>核心数据表 (Room Database)</h3>
+
+  <div class="mockup">
+    <div class="mockup-header">Database Schema</div>
+    <div class="mockup-body" style="font-family: monospace; font-size: 12px; line-height: 1.6; padding: 20px;">
+
+<table style="width:100%; border-collapse: collapse;">
+  <tr style="border-bottom: 1px solid rgba(255,255,255,0.2);">
+    <th style="padding: 6px; text-align: left; font-size: 13px;" colspan="3">📋 camera_devices — 已配对相机</th>
+  </tr>
+  <tr style="color: #999; font-size: 11px;">
+    <td style="padding: 4px 6px;">id (PK)</td>
+    <td style="padding: 4px 6px;">name</td>
+    <td style="padding: 4px 6px;">model</td>
+  </tr>
+  <tr style="color: #999; font-size: 11px;">
+    <td style="padding: 4px 6px;">ble_address</td>
+    <td style="padding: 4px 6px;">wifi_ssid</td>
+    <td style="padding: 4px 6px;">wifi_password (enc)</td>
+  </tr>
+  <tr style="color: #999; font-size: 11px;">
+    <td style="padding: 4px 6px;">last_connected</td>
+    <td style="padding: 4px 6px;">firmware_version</td>
+    <td style="padding: 4px 6px;">protocol</td>
+  </tr>
+</table>
+
+<div style="height: 12px;"></div>
+
+<table style="width:100%; border-collapse: collapse;">
+  <tr style="border-bottom: 1px solid rgba(255,255,255,0.2);">
+    <th style="padding: 6px; text-align: left; font-size: 13px;" colspan="3">📤 transfer_tasks — 传输任务</th>
+  </tr>
+  <tr style="color: #999; font-size: 11px;">
+    <td style="padding: 4px 6px;">id (PK)</td>
+    <td style="padding: 4px 6px;">camera_id (FK)</td>
+    <td style="padding: 4px 6px;">remote_path</td>
+  </tr>
+  <tr style="color: #999; font-size: 11px;">
+    <td style="padding: 4px 6px;">file_name</td>
+    <td style="padding: 4px 6px;">file_size</td>
+    <td style="padding: 4px 6px;">file_type (JPEG/NEF/MOV)</td>
+  </tr>
+  <tr style="color: #999; font-size: 11px;">
+    <td style="padding: 4px 6px;">status</td>
+    <td style="padding: 4px 6px;">progress_bytes</td>
+    <td style="padding: 4px 6px;">local_uri</td>
+  </tr>
+  <tr style="color: #999; font-size: 11px;">
+    <td style="padding: 4px 6px;">created_at</td>
+    <td style="padding: 4px 6px;">completed_at</td>
+    <td style="padding: 4px 6px;">error_message</td>
+  </tr>
+</table>
+
+<div style="height: 12px;"></div>
+
+<table style="width:100%; border-collapse: collapse;">
+  <tr style="border-bottom: 1px solid rgba(255,255,255,0.2);">
+    <th style="padding: 6px; text-align: left; font-size: 13px;" colspan="3">⚙️ app_settings — 应用设置</th>
+  </tr>
+  <tr style="color: #999; font-size: 11px;">
+    <td style="padding: 4px 6px;">key (PK)</td>
+    <td style="padding: 4px 6px;">value</td>
+    <td style="padding: 4px 6px;"></td>
+  </tr>
+</table>
+
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>应用导航结构</h3>
+
+  <div class="mockup">
+    <div class="mockup-header">Screen Navigation Flow</div>
+    <div class="mockup-body" style="font-family: monospace; font-size: 13px; line-height: 2; padding: 20px;">
+
+<div style="text-align: center;">
+
+<div style="display: inline-block; border: 2px solid #4A90D9; border-radius: 8px; padding: 8px 20px; margin: 4px; background: rgba(74,144,217,0.15);">
+  🏠 <strong>主页面</strong><br>
+  <span style="font-size: 10px; color: #999;">已配对相机列表 + 扫描入口</span>
+</div>
+
+<div style="margin: 4px 0;">┌────────────┬────────────┬────────────┐</div>
+
+<div style="display: flex; justify-content: center; gap: 8px; flex-wrap: wrap;">
+
+<div style="border: 2px solid #F5A623; border-radius: 8px; padding: 8px 14px; background: rgba(245,166,35,0.1); min-width: 110px;">
+  📡 <strong>扫描配对</strong><br>
+  <span style="font-size: 9px; color: #999;">BLE扫描 → 选择相机 → 配对</span>
+</div>
+
+<div style="border: 2px solid #27AE60; border-radius: 8px; padding: 8px 14px; background: rgba(39,174,96,0.1); min-width: 110px;">
+  📁 <strong>文件浏览</strong><br>
+  <span style="font-size: 9px; color: #999;">目录树 + 缩略图网格</span>
+</div>
+
+<div style="border: 2px solid #7B4FBF; border-radius: 8px; padding: 8px 14px; background: rgba(123,79,191,0.1); min-width: 110px;">
+  📤 <strong>传输管理</strong><br>
+  <span style="font-size: 9px; color: #999;">队列 + 进度 + 历史</span>
+</div>
+
+<div style="border: 2px solid #E74C3C; border-radius: 8px; padding: 8px 14px; background: rgba(231,76,60,0.1); min-width: 110px;">
+  📷 <strong>遥控拍摄</strong><br>
+  <span style="font-size: 9px; color: #999;">LiveView + 快门 + 参数</span>
+</div>
+
+</div>
+
+<div style="margin: 4px 0;">└──────────────────────────────────────┘</div>
+
+<div style="display: inline-block; border: 2px solid #888; border-radius: 8px; padding: 6px 14px; margin: 4px; background: rgba(136,136,136,0.1);">
+  ⚙️ <strong>设置</strong>
+</div>
+
+</div>
+
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>完整功能清单总览</h3>
+  <table style="width:100%; border-collapse: collapse; font-size: 14px;">
+    <tr style="border-bottom: 1px solid rgba(255,255,255,0.15);">
+      <th style="padding: 8px; text-align: left;">模块</th>
+      <th style="padding: 8px; text-align: left;">核心功能</th>
+      <th style="padding: 8px; text-align: left;">优先级</th>
+    </tr>
+    <tr style="border-bottom: 1px solid rgba(255,255,255,0.08);">
+      <td style="padding: 8px;">📡 连接管理</td>
+      <td style="padding: 8px;">BLE扫描/配对/常连 + WiFi自动切换 + 断线重连</td>
+      <td style="padding: 8px; color: #E74C3C;">P0 核心</td>
+    </tr>
+    <tr style="border-bottom: 1px solid rgba(255,255,255,0.08);">
+      <td style="padding: 8px;">📁 文件浏览</td>
+      <td style="padding: 8px;">目录树 + 缩略图 + RAW预览 + 多选筛选</td>
+      <td style="padding: 8px; color: #E74C3C;">P0 核心</td>
+    </tr>
+    <tr style="border-bottom: 1px solid rgba(255,255,255,0.08);">
+      <td style="padding: 8px;">📤 文件传输</td>
+      <td style="padding: 8px;">队列 + WorkManager后台 + 断点续传 + 通知</td>
+      <td style="padding: 8px; color: #E74C3C;">P0 核心</td>
+    </tr>
+    <tr style="border-bottom: 1px solid rgba(255,255,255,0.08);">
+      <td style="padding: 8px;">📷 遥控拍摄</td>
+      <td style="padding: 8px;">LiveView + 触屏对焦 + 参数调节 + 快门 + 间隔拍摄</td>
+      <td style="padding: 8px; color: #F5A623;">P1 重要</td>
+    </tr>
+    <tr style="border-bottom: 1px solid rgba(255,255,255,0.08);">
+      <td style="padding: 8px;">📋 传输历史</td>
+      <td style="padding: 8px;">传输记录查看 + 重复检测</td>
+      <td style="padding: 8px; color: #F5A623;">P1 重要</td>
+    </tr>
+    <tr style="border-bottom: 1px solid rgba(255,255,255,0.08);">
+      <td style="padding: 8px;">🖼 本地浏览</td>
+      <td style="padding: 8px;">查看已传输的照片/视频 + 分享到其他APP</td>
+      <td style="padding: 8px; color: #F5A623;">P1 重要</td>
+    </tr>
+    <tr>
+      <td style="padding: 8px;">⚙️ 设置</td>
+      <td style="padding: 8px;">存储路径 + 传输质量 + 自动传输 + 省电策略</td>
+      <td style="padding: 8px; color: #4A90D9;">P2 增强</td>
+    </tr>
+  </table>
+</div>

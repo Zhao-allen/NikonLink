@@ -15,7 +15,7 @@ import javax.inject.Singleton
  * Nikon cameras expose a PTP-IP server on port 15740 when in WiFi mode.
  */
 @Singleton
-class PtpIpClient @Inject constructor() {
+class PtpIpClient() {
 
     companion object {
         const val PTP_IP_PORT = 15740

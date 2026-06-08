@@ -1,0 +1,134 @@
+<h2>📡 连接管理层设计</h2>
+<p class="subtitle">BLE 保活常连 + WiFi 高速传输 — 自动切换，用户无感</p>
+
+<div class="section">
+  <h3>连接状态机</h3>
+
+  <div class="mockup">
+    <div class="mockup-header">Connection State Machine</div>
+    <div class="mockup-body" style="font-family: monospace; font-size: 13px; line-height: 1.8; padding: 20px;">
+
+<div style="display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;">
+
+  <div style="border: 2px solid #888; border-radius: 8px; padding: 10px 16px; text-align: center; min-width: 130px; background: rgba(136,136,136,0.15);">
+    🔴<br><strong>Disconnected</strong><br>
+    <span style="font-size: 11px; color: #999;">初始状态 / 断开</span>
+  </div>
+
+  <div style="display: flex; align-items: center; font-size: 20px;">→</div>
+
+  <div style="border: 2px solid #4A90D9; border-radius: 8px; padding: 10px 16px; text-align: center; min-width: 130px; background: rgba(74,144,217,0.15);">
+    🔵<br><strong>BLE Scanning</strong><br>
+    <span style="font-size: 11px; color: #999;">扫描附近尼康相机</span>
+  </div>
+
+  <div style="display: flex; align-items: center; font-size: 20px;">→</div>
+
+  <div style="border: 2px solid #4A90D9; border-radius: 8px; padding: 10px 16px; text-align: center; min-width: 130px; background: rgba(74,144,217,0.15);">
+    🔵<br><strong>BLE Connected</strong><br>
+    <span style="font-size: 11px; color: #999;">低功耗常连接<br>浏览缩略图<br>遥控快门</span>
+  </div>
+
+  <div style="display: flex; align-items: center; font-size: 20px;">⇄</div>
+
+  <div style="border: 2px solid #F5A623; border-radius: 8px; padding: 10px 16px; text-align: center; min-width: 130px; background: rgba(245,166,35,0.15);">
+    🟡<br><strong>WiFi Handshake</strong><br>
+    <span style="font-size: 11px; color: #999;">BLE协商WiFi参数<br>自动切换网络</span>
+  </div>
+
+  <div style="display: flex; align-items: center; font-size: 20px;">→</div>
+
+  <div style="border: 2px solid #27AE60; border-radius: 8px; padding: 10px 16px; text-align: center; min-width: 130px; background: rgba(39,174,96,0.15);">
+    🟢<br><strong>WiFi Transfer</strong><br>
+    <span style="font-size: 11px; color: #999;">高速传输模式<br>文件下载 / LiveView</span>
+  </div>
+
+</div>
+
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>核心工作流程</h3>
+
+  <div class="mockup">
+    <div class="mockup-header">BLE → WiFi 自动切换时序</div>
+    <div class="mockup-body" style="font-family: monospace; font-size: 13px; line-height: 1.8; padding: 20px;">
+
+<div style="background: rgba(0,0,0,0.2); padding: 16px; border-radius: 8px;">
+
+<strong>📱 App</strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>📷 Nikon Camera</strong>
+
+<div style="margin: 8px 0; padding: 8px; background: rgba(74,144,217,0.15); border-radius: 4px;">
+1. BLE Scan ────────────────────────────→  🔵 广播 SnapBridge Service UUID
+</div>
+<div style="margin: 8px 0; padding: 8px; background: rgba(74,144,217,0.15); border-radius: 4px;">
+2. BLE Connect + 配对认证 ←────────────→  🔵 建立BLE连接
+</div>
+<div style="margin: 8px 0; padding: 8px; background: rgba(74,144,217,0.15); border-radius: 4px;">
+3. 获取缩略图列表 ←─────────────────────  🔵 BLE传输缩略图 (低速OK)
+</div>
+<div style="margin: 8px 0; padding: 8px; background: rgba(245,166,35,0.15); border-radius: 4px;">
+4. 用户选择文件 → 请求WiFi传输 ─────────→  🔵 通过BLE发送WiFi配置请求
+</div>
+<div style="margin: 8px 0; padding: 8px; background: rgba(245,166,35,0.15); border-radius: 4px;">
+5. 收到WiFi SSID/PWD ←──────────────────  🔵 相机返回WiFi AP信息
+</div>
+<div style="margin: 8px 0; padding: 8px; background: rgba(245,166,35,0.15); border-radius: 4px;">
+6. 连接相机WiFi热点 ────────────────────→  🟡 手机切换到相机WiFi
+</div>
+<div style="margin: 8px 0; padding: 8px; background: rgba(39,174,96,0.15); border-radius: 4px;">
+7. PTP-IP / HTTP 文件传输 ←─────────────→  🟢 WiFi高速传输
+</div>
+<div style="margin: 8px 0; padding: 8px; background: rgba(39,174,96,0.15); border-radius: 4px;">
+8. 传输完成 → 断开WiFi → 回到BLE ───────→  🔵 恢复低功耗连接
+</div>
+
+</div>
+
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>协议适配层</h3>
+
+  <table style="width:100%; border-collapse: collapse; font-size: 14px;">
+    <tr style="border-bottom: 1px solid rgba(255,255,255,0.2);">
+      <th style="padding: 10px; text-align: left;">协议</th>
+      <th style="padding: 10px; text-align: left;">适用机型</th>
+      <th style="padding: 10px; text-align: left;">用途</th>
+    </tr>
+    <tr style="border-bottom: 1px solid rgba(255,255,255,0.1); background: rgba(74,144,217,0.1);">
+      <td style="padding: 10px;"><strong>SnapBridge 2.x (BLE)</strong></td>
+      <td style="padding: 10px;">Z9, Z8, Z6III, Zf, Z50II, D780</td>
+      <td style="padding: 10px;">配对、缩略图、遥控、WiFi握手</td>
+    </tr>
+    <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);">
+      <td style="padding: 10px;"><strong>PTP-IP (WiFi)</strong></td>
+      <td style="padding: 10px;">全部Z系列 + D780/D850</td>
+      <td style="padding: 10px;">文件浏览、高速传输、LiveView</td>
+    </tr>
+    <tr style="border-bottom: 1px solid rgba(255,255,255,0.1); background: rgba(74,144,217,0.1);">
+      <td style="padding: 10px;"><strong>Nikon HTTP API (WiFi)</strong></td>
+      <td style="padding: 10px;">Z9, Z8, Z6III (固件3.0+)</td>
+      <td style="padding: 10px;">REST风格文件访问、相机设置</td>
+    </tr>
+    <tr>
+      <td style="padding: 10px;"><strong>尼康WMU协议</strong></td>
+      <td style="padding: 10px;">D850, D6, D780 (兼容模式)</td>
+      <td style="padding: 10px;">降级适配旧协议文件传输</td>
+    </tr>
+  </table>
+</div>
+
+<div class="section">
+  <h3>自动重连策略</h3>
+  <ul style="line-height: 2;">
+    <li>📶 <strong>BLE断线检测</strong> — 5秒心跳超时，自动进入扫描重连</li>
+    <li>🔄 <strong>WiFi传输中断</strong> — 记录断点，回到BLE模式后提示用户续传</li>
+    <li>📳 <strong>后台保活</strong> — 传输任务交给WorkManager，APP退到后台继续传输</li>
+    <li>🔋 <strong>省电策略</strong> — 空闲5分钟后断开WiFi，仅保持BLE低功耗连接</li>
+  </ul>
+</div>
