@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:startDestination="@id/navigation_browser">
+    app:startDestination="@id/navigation_cameras">
 
     <fragment
         android:id="@+id/navigation_cameras"
-        android:name="com.nikonlink.browser.ui.BrowserFragment"
+        android:name="com.nikonlink.ui.camera.CameraFragment"
         android:label="Camera" />
 
     <fragment

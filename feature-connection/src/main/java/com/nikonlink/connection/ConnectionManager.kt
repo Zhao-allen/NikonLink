@@ -84,6 +84,26 @@ class ConnectionManager @Inject constructor(
         }
     }
 
+    /**
+     * Connect PTP-IP directly when the phone is already on the camera's WiFi network.
+     * This skips the BLE handshake — useful when the user has manually connected to camera WiFi.
+     */
+    fun connectPtpIpDirectly(cameraIp: String = "192.168.1.1") {
+        _connectionState.value = ConnectionState.WiFiConnecting
+        scope.launch {
+            ptpIpClient.connect(cameraIp)
+                .onSuccess {
+                    _connectionState.value = ConnectionState.WiFiTransfer
+                }
+                .onFailure { e ->
+                    _connectionState.value = ConnectionState.Disconnected
+                }
+        }
+    }
+
+    /** Get the PTP-IP client for direct use (e.g., file browsing). */
+    fun getPtpIpClient(): PtpIpClient = ptpIpClient
+
     /** Request WiFi handshake. Camera returns SSID/password via BLE, app connects. */
     fun requestWifiConnection(ssid: String, password: String) {
         if (_connectionState.value != ConnectionState.BLEConnected &&

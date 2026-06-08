@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.nikonlink.browser.databinding.FragmentBrowserBinding
+import com.nikonlink.common.ConnectionState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -63,7 +64,14 @@ class BrowserFragment : Fragment() {
             }
         }
 
-        viewModel.loadDirectory("/DCIM")
+        // Only load when connected
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.connectionState.collect { state ->
+                if (state == ConnectionState.WiFiTransfer) {
+                    viewModel.loadDirectory("/DCIM")
+                }
+            }
+        }
     }
 
     override fun onDestroyView() {

@@ -44,6 +44,9 @@ class BrowserViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(BrowserUiState())
     val uiState: StateFlow<BrowserUiState> = _uiState.asStateFlow()
 
+    /** Exposes the connection state so the fragment can decide when to load. */
+    val connectionState: StateFlow<ConnectionState> = connectionManager.connectionState
+
     private val pathStack = ArrayDeque<String>()
 
     fun loadDirectory(path: String) {
