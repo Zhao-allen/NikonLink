@@ -8,9 +8,7 @@ plugins {
 android {
     namespace = "com.nikonlink.transfer"
     compileSdk = 34
-    defaultConfig { minSdk = 28
-        targetSdk = 34
-    }
+    defaultConfig { minSdk = 28 }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
@@ -33,4 +31,5 @@ dependencies {
 
     implementation("androidx.fragment:fragment-ktx:1.6.2")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
+    implementation("androidx.recyclerview:recyclerview:1.3.2")
 }
