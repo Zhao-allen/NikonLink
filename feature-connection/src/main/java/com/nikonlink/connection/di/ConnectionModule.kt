@@ -15,22 +15,18 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object ConnectionModule {
 
+    // BleScanner has no @Inject constructor (uses BluetoothAdapter.getDefaultAdapter() internally)
     @Provides
     @Singleton
     fun provideBleScanner(): BleScanner = BleScanner()
 
-    @Provides
-    @Singleton
-    fun provideBleGattManager(): BleGattManager = BleGattManager()
-
-    @Provides
-    @Singleton
-    fun provideWifiConnectionManager(): WifiConnectionManager = WifiConnectionManager()
-
+    // PtpIpClient has no @Inject constructor
     @Provides
     @Singleton
     fun providePtpIpClient(): PtpIpClient = PtpIpClient()
 
+    // BleGattManager and WifiConnectionManager have @Inject constructors with @ApplicationContext
+    // Hilt can create them automatically, but we provide ConnectionManager explicitly
     @Provides
     @Singleton
     fun provideConnectionManager(
