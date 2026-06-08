@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigation_cameras"
+        android:title="Camera"
+        android:icon="@android:drawable/ic_menu_camera" />
+    <item
+        android:id="@+id/navigation_browser"
+        android:title="Browse"
+        android:icon="@android:drawable/ic_menu_gallery" />
+    <item
+        android:id="@+id/navigation_transfer"
+        android:title="Transfer"
+        android:icon="@android:drawable/ic_menu_upload" />
+    <item
+        android:id="@+id/navigation_remote"
+        android:title="Remote"
+        android:icon="@android:drawable/ic_menu_manage" />
+</menu>
