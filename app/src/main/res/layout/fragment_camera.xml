@@ -5,7 +5,6 @@
     android:orientation="vertical"
     android:background="@android:color/black">
 
-    <!-- Header -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="56dp"
@@ -19,117 +18,147 @@
             android:textColor="@android:color/white"
             android:textSize="20sp"
             android:textStyle="bold" />
-        <View
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
+        <View android:layout_width="0dp" android:layout_height="0dp" android:layout_weight="1" />
         <TextView
             android:id="@+id/tvConnectionStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Disconnected"
+            android:text="WiFi"
             android:textColor="#888888"
             android:textSize="12sp" />
     </LinearLayout>
 
-    <!-- Connection status card -->
-    <LinearLayout
-        android:id="@+id/statusCard"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp"
-        android:layout_margin="12dp"
-        android:background="#1a1a2e"
-        android:elevation="4dp">
-
-        <TextView
-            android:id="@+id/tvStatusTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Not Connected"
-            android:textColor="@android:color/white"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/tvStatusDetail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Scan for Nikon cameras or connect via WiFi"
-            android:textColor="#999999"
-            android:textSize="13sp"
-            android:layout_marginTop="4dp" />
-
-        <!-- PTP-IP Direct Connect button (visible when on camera WiFi) -->
-        <Button
-            android:id="@+id/btnDirectConnect"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:text="Connect via PTP-IP (Already on Camera WiFi)"
-            android:textSize="14sp"
-            android:layout_marginTop="12dp"
-            android:visibility="gone" />
-
-        <!-- Disconnect button -->
-        <Button
-            android:id="@+id/btnDisconnect"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:text="Disconnect"
-            android:textSize="14sp"
-            android:layout_marginTop="8dp"
-            android:visibility="gone"
-            android:textColor="#E74C3C" />
-    </LinearLayout>
-
-    <!-- BLE Scan section -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Bluetooth Cameras"
-        android:textColor="@android:color/white"
-        android:textSize="14sp"
-        android:paddingHorizontal="16dp"
-        android:paddingTop="8dp" />
-
-    <FrameLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewCameras"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingHorizontal="8dp" />
-
-        <TextView
-            android:id="@+id/tvEmptyHint"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Tap SCAN to find nearby Nikon cameras\n\nMake sure the camera has Bluetooth enabled\nand SnapBridge is in pairing mode"
-            android:textColor="#555555"
-            android:textSize="13sp"
-            android:gravity="center"
-            android:layout_gravity="center"
-            android:paddingHorizontal="32dp" />
-    </FrameLayout>
+            android:orientation="vertical"
+            android:padding="16dp">
 
-    <!-- Bottom action bar -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:gravity="center"
-        android:paddingHorizontal="16dp"
-        android:background="#16213e">
+            <!-- Status Card -->
+            <LinearLayout
+                android:id="@+id/statusCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp"
+                android:background="#1a1a2e"
+                android:layout_marginBottom="16dp">
 
-        <Button
-            android:id="@+id/btnScan"
-            android:layout_width="match_parent"
-            android:layout_height="44dp"
-            android:text="SCAN FOR CAMERAS"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-    </LinearLayout>
+                <TextView
+                    android:id="@+id/tvStatusTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Connect to Camera WiFi"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvStatusDetail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Waiting for camera WiFi connection..."
+                    android:textColor="#999999"
+                    android:textSize="13sp"
+                    android:layout_marginTop="8dp" />
+
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginTop="12dp"
+                    android:visibility="gone" />
+
+                <Button
+                    android:id="@+id/btnConnect"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:text="CONNECT TO CAMERA"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="16dp"
+                    android:visibility="gone" />
+
+                <Button
+                    android:id="@+id/btnRetry"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:text="Retry Connection"
+                    android:textSize="14sp"
+                    android:layout_marginTop="8dp"
+                    android:visibility="gone" />
+
+                <Button
+                    android:id="@+id/btnDisconnect"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:text="Disconnect"
+                    android:textSize="14sp"
+                    android:layout_marginTop="8dp"
+                    android:visibility="gone"
+                    android:textColor="#E74C3C" />
+            </LinearLayout>
+
+            <!-- Instructions -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="How to connect your Z5"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1. On your Z5 camera:\n   Menu → Connect to smart device → Wi-Fi connection\n2. Select 'Establish Wi-Fi connection'\n3. Camera shows SSID (e.g. 'CCCC_7642966') and password\n4. On your phone:\n   Settings → Wi-Fi → Connect to the camera's SSID\n5. Come back to this app and tap CONNECT"
+                android:textColor="#AAAAAA"
+                android:textSize="14sp"
+                android:lineSpacingExtra="4dp" />
+
+            <!-- Camera IP config -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Advanced Settings"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="8dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Camera IP:"
+                    android:textColor="#AAAAAA"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/etCameraIp"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:text="192.168.1.1"
+                    android:textColor="@android:color/white"
+                    android:textSize="14sp"
+                    android:background="#1a1a2e"
+                    android:paddingHorizontal="12dp"
+                    android:layout_marginStart="12dp"
+                    android:inputType="text" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>
