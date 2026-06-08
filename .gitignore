@@ -1,0 +1,17 @@
+# Build
+build/
+.gradle/
+*.apk
+*.aab
+*.ap_
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# Local
+local.properties
+
+# Superpowers
+.superpowers/
