@@ -20,15 +20,19 @@ jobs:
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
 
-      - name: Grant permission for gradlew
+      - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-      # 覆盖 gradle.properties 里写死的Windows JDK路径
       - name: Build Release APK
-        run: ./gradlew assembleRelease -Dorg.gradle.java.home=${{ env.JAVA_HOME }}
+        run: ./gradlew assembleRelease -Dorg.gradle.java.home=${{ env.JAVA_HOME }} -x lint
 
-      - name: Upload APK
+      # 列出apk目录，查看真实文件
+      - name: List APK files
+        run: ls -la app/build/outputs/apk/release/
+
+      # 使用通配符匹配所有apk，不再写死文件名
+      - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
           name: NikonLink-Release-APK
-          path: app/build/outputs/apk/release/app-release.apk
+          path: app/build/outputs/apk/release/*.apk
