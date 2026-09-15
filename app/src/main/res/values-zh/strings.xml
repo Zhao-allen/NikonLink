@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+   <resources>
+       <string name="app_name">NikonLink</string>
+       <string name="status_disconnected">未连接</string>
+       <string name="status_connection_failed">连接失败</string>
+       <string name="status_connect_wifi">连接到相机 WiFi</string>
+       <string name="status_detail_not_on_wifi">手机未连接到相机 WiFi。\n请前往：设置 → Wi-Fi → 连接到相机的网络。</string>
+       <string name="status_on_wifi">已连接相机 WiFi: %1$s</string>
+       <string name="status_detail_ready">准备就绪，请点击下方“连接”按钮。</string>
+   </resources>
