@@ -18,7 +18,7 @@
             android:layout_height="32dp"
             android:src="@android:drawable/ic_menu_revert"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="Back" />
+            android:contentDescription="@string/cd_back" />
 
         <TextView
             android:id="@+id/tvPath"
@@ -38,7 +38,7 @@
             android:layout_height="32dp"
             android:src="@android:drawable/ic_menu_sort_by_size"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="Filter" />
+            android:contentDescription="@string/cd_filter" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -70,7 +70,7 @@
             android:id="@+id/btnSelectAll"
             android:layout_width="wrap_content"
             android:layout_height="36dp"
-            android:text="Select All"
+            android:text="@string/select_all"
             android:textSize="12sp"
             style="@style/Widget.AppCompat.Button.Borderless" />
 
@@ -78,7 +78,7 @@
             android:id="@+id/btnTransfer"
             android:layout_width="wrap_content"
             android:layout_height="36dp"
-            android:text="Transfer"
+            android:text="@string/transfer"
             android:textSize="12sp"
             android:textColor="#27AE60"
             style="@style/Widget.AppCompat.Button.Borderless" />

@@ -30,7 +30,7 @@
         android:name=".NikonLinkApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="NikonLink"
+        android:label="@string/app_name"
         android:theme="@style/Theme.Material3.Dark.NoActionBar"
         android:supportsRtl="true">
 

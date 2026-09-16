@@ -6,20 +6,20 @@
     <fragment
         android:id="@+id/navigation_cameras"
         android:name="com.nikonlink.ui.camera.CameraFragment"
-        android:label="Camera" />
+        android:label="@string/nav_camera" />
 
     <fragment
         android:id="@+id/navigation_browser"
         android:name="com.nikonlink.browser.ui.BrowserFragment"
-        android:label="Browse" />
+        android:label="@string/nav_browse" />
 
     <fragment
         android:id="@+id/navigation_transfer"
         android:name="com.nikonlink.transfer.ui.TransferFragment"
-        android:label="Transfers" />
+        android:label="@string/nav_transfers" />
 
     <fragment
         android:id="@+id/navigation_remote"
         android:name="com.nikonlink.browser.ui.BrowserFragment"
-        android:label="Remote" />
+        android:label="@string/nav_remote" />
 </navigation>

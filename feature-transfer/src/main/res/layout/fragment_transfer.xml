@@ -8,7 +8,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:text="Transfers"
+        android:text="@string/transfers"
         android:textColor="@android:color/white"
         android:textSize="18sp"
         android:gravity="center_vertical"

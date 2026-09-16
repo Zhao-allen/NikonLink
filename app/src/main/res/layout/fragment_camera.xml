@@ -14,7 +14,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="NikonLink"
+            android:text="@string/app_name"
             android:textColor="@android:color/white"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -23,7 +23,7 @@
             android:id="@+id/tvConnectionStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="WiFi"
+            android:text="@string/wifi"
             android:textColor="#888888"
             android:textSize="12sp" />
     </LinearLayout>
@@ -53,7 +53,7 @@
                     android:id="@+id/tvStatusTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Connect to Camera WiFi"
+                    android:text="@string/connect_to_camera_wifi"
                     android:textColor="@android:color/white"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -62,7 +62,7 @@
                     android:id="@+id/tvStatusDetail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Waiting for camera WiFi connection..."
+                    android:text="@string/waiting_for_camera_wifi"
                     android:textColor="#999999"
                     android:textSize="13sp"
                     android:layout_marginTop="8dp" />
@@ -78,7 +78,7 @@
                     android:id="@+id/btnConnect"
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
-                    android:text="CONNECT TO CAMERA"
+                    android:text="@string/connect_to_camera"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:layout_marginTop="16dp"
@@ -88,7 +88,7 @@
                     android:id="@+id/btnRetry"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
-                    android:text="Retry Connection"
+                    android:text="@string/retry_connection"
                     android:textSize="14sp"
                     android:layout_marginTop="8dp"
                     android:visibility="gone" />
@@ -97,7 +97,7 @@
                     android:id="@+id/btnDisconnect"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
-                    android:text="Disconnect"
+                    android:text="@string/disconnect"
                     android:textSize="14sp"
                     android:layout_marginTop="8dp"
                     android:visibility="gone"
@@ -108,7 +108,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="How to connect your Z5"
+                android:text="@string/how_to_connect_z5"
                 android:textColor="@android:color/white"
                 android:textSize="16sp"
                 android:textStyle="bold"
@@ -117,7 +117,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="1. On your Z5 camera:\n   Menu → Connect to smart device → Wi-Fi connection\n2. Select 'Establish Wi-Fi connection'\n3. Camera shows SSID (e.g. 'CCCC_7642966') and password\n4. On your phone:\n   Settings → Wi-Fi → Connect to the camera's SSID\n5. Come back to this app and tap CONNECT"
+                android:text="@string/connection_instructions"
                 android:textColor="#AAAAAA"
                 android:textSize="14sp"
                 android:lineSpacingExtra="4dp" />
@@ -126,7 +126,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Advanced Settings"
+                android:text="@string/advanced_settings"
                 android:textColor="@android:color/white"
                 android:textSize="16sp"
                 android:textStyle="bold"
@@ -142,7 +142,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Camera IP:"
+                    android:text="@string/camera_ip"
                     android:textColor="#AAAAAA"
                     android:textSize="14sp" />
 

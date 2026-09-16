@@ -1,0 +1,41 @@
+<resources>
+    <string name="app_name">NikonLink</string>
+    <string name="wifi">WiFi</string>
+
+    <!-- Camera fragment -->
+    <string name="connect_to_camera_wifi">连接相机 WiFi</string>
+    <string name="waiting_for_camera_wifi">等待相机 WiFi 连接…</string>
+    <string name="connect_to_camera">连接相机</string>
+    <string name="retry_connection">重试连接</string>
+    <string name="disconnect">断开连接</string>
+    <string name="how_to_connect_z5">如何连接您的 Z5</string>
+    <string name="connection_instructions">1. 在 Z5 相机上：\n   菜单 → 连接智能设备 → Wi-Fi 连接\n2. 选择「建立 Wi-Fi 连接」\n3. 相机显示 SSID（如「CCCC_7642966」）和密码\n4. 在手机上：\n   设置 → Wi-Fi → 连接相机的 SSID\n5. 返回此应用并点击「连接」</string>
+    <string name="advanced_settings">高级设置</string>
+    <string name="camera_ip">相机 IP：</string>
+
+    <!-- Bottom navigation -->
+    <string name="nav_camera">相机</string>
+    <string name="nav_browse">浏览</string>
+    <string name="nav_transfer">传输</string>
+    <string name="nav_remote">遥控</string>
+    <string name="nav_transfers">传输列表</string>
+
+    <!-- Connection states -->
+    <string name="status_disconnected">未连接</string>
+    <string name="status_connection_failed">连接失败</string>
+    <string name="status_on_camera_wifi">已连接相机 WiFi：%1$s</string>
+    <string name="ready_to_connect">准备就绪，点击下方「连接」按钮。</string>
+    <string name="phone_not_on_camera_wifi">手机未连接相机 WiFi。\n请前往 设置 → Wi-Fi → 连接相机的网络。</string>
+    <string name="status_connecting">连接中…</string>
+    <string name="connecting_to_camera">正在连接相机</string>
+    <string name="attempting_ptp_ip">正在尝试 PTP-IP 连接 %1$s…</string>
+    <string name="status_connected">已连接</string>
+    <string name="camera_connected_browse">相机已连接！切换到「浏览」标签页查看文件。</string>
+
+    <!-- Errors -->
+    <string name="error_prefix">错误：%1$s</string>
+
+    <!-- Notification channel -->
+    <string name="file_transfer_channel">文件传输</string>
+    <string name="file_transfer_channel_desc">显示文件传输进度</string>
+</resources>

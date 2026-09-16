@@ -2,18 +2,18 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/navigation_cameras"
-        android:title="Camera"
+        android:title="@string/nav_camera"
         android:icon="@android:drawable/ic_menu_camera" />
     <item
         android:id="@+id/navigation_browser"
-        android:title="Browse"
+        android:title="@string/nav_browse"
         android:icon="@android:drawable/ic_menu_gallery" />
     <item
         android:id="@+id/navigation_transfer"
-        android:title="Transfer"
+        android:title="@string/nav_transfer"
         android:icon="@android:drawable/ic_menu_upload" />
     <item
         android:id="@+id/navigation_remote"
-        android:title="Remote"
+        android:title="@string/nav_remote"
         android:icon="@android:drawable/ic_menu_manage" />
 </menu>

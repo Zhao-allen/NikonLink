@@ -50,37 +50,37 @@ class CameraFragment : Fragment(R.layout.fragment_camera) {
 
                 when (state.connectionState) {
                     ConnectionState.Disconnected -> {
-                        binding.tvConnectionStatus.text = "Disconnected"
+                        binding.tvConnectionStatus.text = getString(R.string.status_disconnected)
                         binding.tvConnectionStatus.setTextColor(0xFF888888.toInt())
                         if (state.lastError != null) {
-                            binding.tvStatusTitle.text = "Connection Failed"
+                            binding.tvStatusTitle.text = getString(R.string.status_connection_failed)
                             binding.tvStatusDetail.text = state.lastError
                             binding.tvStatusDetail.setTextColor(0xFFE74C3C.toInt())
                             binding.btnRetry.visibility = View.VISIBLE
                         } else if (state.isOnCameraWifi) {
-                            binding.tvStatusTitle.text = "On Camera WiFi: ${state.currentWifiSsid ?: ""}"
-                            binding.tvStatusDetail.text = "Ready to connect. Tap CONNECT below."
+                            binding.tvStatusTitle.text = getString(R.string.status_on_camera_wifi, state.currentWifiSsid ?: "")
+                            binding.tvStatusDetail.text = getString(R.string.ready_to_connect)
                             binding.tvStatusDetail.setTextColor(0xFF27AE60.toInt())
                             binding.btnConnect.visibility = View.VISIBLE
                         } else {
-                            binding.tvStatusTitle.text = "Connect to Camera WiFi"
-                            binding.tvStatusDetail.text = "Phone is not on camera WiFi.\nGo to Settings → Wi-Fi → Connect to your camera's network."
+                            binding.tvStatusTitle.text = getString(R.string.connect_to_camera_wifi)
+                            binding.tvStatusDetail.text = getString(R.string.phone_not_on_camera_wifi)
                             binding.tvStatusDetail.setTextColor(0xFF999999.toInt())
                         }
                     }
                     ConnectionState.WiFiConnecting -> {
-                        binding.tvConnectionStatus.text = "Connecting..."
+                        binding.tvConnectionStatus.text = getString(R.string.status_connecting)
                         binding.tvConnectionStatus.setTextColor(0xFFF5A623.toInt())
-                        binding.tvStatusTitle.text = "Connecting to Camera"
-                        binding.tvStatusDetail.text = "Attempting PTP-IP to ${state.connectedCameraName ?: "192.168.1.1"}..."
+                        binding.tvStatusTitle.text = getString(R.string.connecting_to_camera)
+                        binding.tvStatusDetail.text = getString(R.string.attempting_ptp_ip, state.connectedCameraName ?: "192.168.1.1")
                         binding.tvStatusDetail.setTextColor(0xFF999999.toInt())
                         binding.progressBar.visibility = View.VISIBLE
                     }
                     ConnectionState.WiFiTransfer -> {
-                        binding.tvConnectionStatus.text = "Connected"
+                        binding.tvConnectionStatus.text = getString(R.string.status_connected)
                         binding.tvConnectionStatus.setTextColor(0xFF27AE60.toInt())
-                        binding.tvStatusTitle.text = "Connected"
-                        binding.tvStatusDetail.text = "Camera connected! Switch to Browse tab to view files."
+                        binding.tvStatusTitle.text = getString(R.string.status_connected)
+                        binding.tvStatusDetail.text = getString(R.string.camera_connected_browse)
                         binding.tvStatusDetail.setTextColor(0xFF27AE60.toInt())
                         binding.btnDisconnect.visibility = View.VISIBLE
                     }

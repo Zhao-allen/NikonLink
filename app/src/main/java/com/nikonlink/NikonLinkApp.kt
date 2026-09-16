@@ -18,10 +18,10 @@ class NikonLinkApp : Application() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
                 TransferWorker.CHANNEL_TRANSFER,
-                "File Transfer",
+                getString(R.string.file_transfer_channel),
                 NotificationManager.IMPORTANCE_LOW
             ).apply {
-                description = "Shows file transfer progress"
+                description = getString(R.string.file_transfer_channel_desc)
             }
             val manager = getSystemService(NotificationManager::class.java)
             manager.createNotificationChannel(channel)

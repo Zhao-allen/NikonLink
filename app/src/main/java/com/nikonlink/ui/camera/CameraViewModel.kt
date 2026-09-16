@@ -5,6 +5,7 @@ import android.net.wifi.WifiManager
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.nikonlink.R
 import com.nikonlink.common.ConnectionState
 import com.nikonlink.connection.ConnectionManager
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -43,7 +44,7 @@ class CameraViewModel @Inject constructor(
             connectionManager.lastError.collect { error ->
                 _uiState.update { it.copy(lastError = error) }
                 if (error != null) {
-                    _events.emit("Error: $error")
+                    _events.emit(appContext.getString(R.string.error_prefix, error))
                 }
             }
         }

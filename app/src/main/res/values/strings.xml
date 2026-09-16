@@ -1,0 +1,41 @@
+<resources>
+    <string name="app_name">NikonLink</string>
+    <string name="wifi">WiFi</string>
+
+    <!-- Camera fragment -->
+    <string name="connect_to_camera_wifi">Connect to Camera WiFi</string>
+    <string name="waiting_for_camera_wifi">Waiting for camera WiFi connection…</string>
+    <string name="connect_to_camera">CONNECT TO CAMERA</string>
+    <string name="retry_connection">Retry Connection</string>
+    <string name="disconnect">Disconnect</string>
+    <string name="how_to_connect_z5">How to connect your Z5</string>
+    <string name="connection_instructions">1. On your Z5 camera:\n   Menu → Connect to smart device → Wi-Fi connection\n2. Select \'Establish Wi-Fi connection\'\n3. Camera shows SSID (e.g. \'CCCC_7642966\') and password\n4. On your phone:\n   Settings → Wi-Fi → Connect to the camera\'s SSID\n5. Come back to this app and tap CONNECT</string>
+    <string name="advanced_settings">Advanced Settings</string>
+    <string name="camera_ip">Camera IP:</string>
+
+    <!-- Bottom navigation -->
+    <string name="nav_camera">Camera</string>
+    <string name="nav_browse">Browse</string>
+    <string name="nav_transfer">Transfer</string>
+    <string name="nav_remote">Remote</string>
+    <string name="nav_transfers">Transfers</string>
+
+    <!-- Connection states -->
+    <string name="status_disconnected">Disconnected</string>
+    <string name="status_connection_failed">Connection Failed</string>
+    <string name="status_on_camera_wifi">On Camera WiFi: %1$s</string>
+    <string name="ready_to_connect">Ready to connect. Tap CONNECT below.</string>
+    <string name="phone_not_on_camera_wifi">Phone is not on camera WiFi.\nGo to Settings → Wi-Fi → Connect to your camera\'s network.</string>
+    <string name="status_connecting">Connecting…</string>
+    <string name="connecting_to_camera">Connecting to Camera</string>
+    <string name="attempting_ptp_ip">Attempting PTP-IP to %1$s…</string>
+    <string name="status_connected">Connected</string>
+    <string name="camera_connected_browse">Camera connected! Switch to Browse tab to view files.</string>
+
+    <!-- Errors -->
+    <string name="error_prefix">Error: %1$s</string>
+
+    <!-- Notification channel -->
+    <string name="file_transfer_channel">File Transfer</string>
+    <string name="file_transfer_channel_desc">Shows file transfer progress</string>
+</resources>

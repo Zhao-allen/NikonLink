@@ -1,0 +1,4 @@
+<resources>
+    <string name="transfers">传输列表</string>
+    <string name="transferring">传输中</string>
+</resources>

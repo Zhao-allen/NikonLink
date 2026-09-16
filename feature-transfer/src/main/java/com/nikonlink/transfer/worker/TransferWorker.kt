@@ -7,6 +7,7 @@ import android.provider.MediaStore
 import androidx.hilt.work.HiltWorker
 import androidx.work.*
 import com.nikonlink.connection.ConnectionManager
+import com.nikonlink.transfer.R
 import com.nikonlink.connection.wifi.PtpIpClient
 import com.nikonlink.data.db.dao.TransferTaskDao
 import com.nikonlink.data.db.entity.TransferTaskEntity
@@ -141,7 +142,7 @@ class TransferWorker @AssistedInject constructor(
     private fun createForegroundInfo(fileName: String, progress: Int): ForegroundInfo {
         val notification = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             android.app.Notification.Builder(applicationContext, CHANNEL_TRANSFER)
-                .setContentTitle("Transferring")
+                .setContentTitle(applicationContext.getString(R.string.transferring))
                 .setContentText(fileName)
                 .setSmallIcon(android.R.drawable.stat_sys_download)
                 .setProgress(100, progress, progress == 0)
@@ -149,7 +150,7 @@ class TransferWorker @AssistedInject constructor(
         } else {
             @Suppress("DEPRECATION")
             android.app.Notification.Builder(applicationContext)
-                .setContentTitle("Transferring")
+                .setContentTitle(applicationContext.getString(R.string.transferring))
                 .setContentText(fileName)
                 .setSmallIcon(android.R.drawable.stat_sys_download)
                 .setProgress(100, progress, progress == 0)

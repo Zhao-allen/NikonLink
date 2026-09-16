@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.nikonlink.browser.R
 import com.nikonlink.browser.databinding.FragmentBrowserBinding
 import com.nikonlink.common.ConnectionState
 import dagger.hilt.android.AndroidEntryPoint
@@ -60,7 +61,7 @@ class BrowserFragment : Fragment() {
 
                 binding.tvPath.text = state.currentPath
                 binding.selectionBar.visibility = if (state.isMultiSelectMode) View.VISIBLE else View.GONE
-                binding.tvSelectedCount.text = "Selected ${state.selectedPaths.size} (${FolderListAdapter.formatSize(state.selectedTotalSize)})"
+                binding.tvSelectedCount.text = getString(R.string.selected_count, state.selectedPaths.size, FolderListAdapter.formatSize(state.selectedTotalSize))
             }
         }
 
